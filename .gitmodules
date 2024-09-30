@@ -1,0 +1,3 @@
+[submodule "my-app"]
+	path = my-app
+	url = https://github.com/AkarshanGhosh/MERN_app_FrontEnd_railway
