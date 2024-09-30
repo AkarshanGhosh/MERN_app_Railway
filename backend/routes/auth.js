@@ -6,7 +6,7 @@ const { body, validationResult } = require('express-validator'); // Import valid
 const user = require('../models/User');
 
 // Create a User using: POST '/api/auth/'. Doesn't require Auth
-router.post('/', [
+router.post('/createuser', [
     body('Username','Enter a valid Username').isLength({ min: 4 }),
     body('Email','Enter a valid Email').isEmail(),
     body('Phone_Number','Enter a valid Phone number').isLength({ min: 4 }),
