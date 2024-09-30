@@ -9,7 +9,7 @@ connectToMongo();
 
 // Create an instance of the Express application
 const app = express();
-const port = 3000; // Define the port number
+const port = 5000; // Define the port number
 
 app.use(express.json())
 
