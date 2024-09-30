@@ -1,0 +1,36 @@
+bash $
+
+---------------------------------------------------------------------------
+npx -g create-react-app my-app
+
+npm start ---> to start react server 
+
+npm run build -->Building for Production: When you’re ready to deploy your app, you can create a production build using
+------------------------------------------------------------------------------------------
+npm i -d nodemon 
+
+-d refers to dev dependency 
+
+nodemon .\index.js    to run mongodb server
+------------------------------------------------------------------------------------------
+
+
+if nodemon isn't working do this in windows power shell 
+
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\user> Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+PS C:\Users\user> Set-ExecutionPolicy Unrestricted -Scope CurrentUser
+PS C:\Users\user> Get-ExecutionPolicy
+Unrestricted
+PS C:\Users\user> npx nodemon .\index.js
+  Usage: nodemon [nodemon options] [script.js] [args]
+
+  See "nodemon --help" for more.
+
+PS C:\Users\user>
+------------------------------------------------------------------------------------------
+

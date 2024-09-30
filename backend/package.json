@@ -1,0 +1,28 @@
+{
+  "name": "railway-backend",
+  "version": "1.0.0",
+  "description": "its manages the user data on cloud and also store the site data on cloud",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "\"railway\"",
+    "\"backend\"",
+    "\"npm\"",
+    "\"node\"",
+    "\"express\"",
+    "\"train\"",
+    "\"ticketing\"",
+    "\"API\""
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "express": "^4.21.0",
+    "express-validator": "^7.2.0",
+    "mongoose": "^8.7.0",
+    "nodemon": "^3.1.7"
+  }
+}
