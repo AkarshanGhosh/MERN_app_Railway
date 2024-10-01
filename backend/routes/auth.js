@@ -4,12 +4,12 @@ const User = require('../models/User');
 const router = express.Router();
 const { body, validationResult } = require('express-validator'); // Import validationResult
 var jwt = require('jsonwebtoken');
-
+var fetchuser = require('../middleware/fetchuser');
 const JWT_SECRET = 'OurWebAppIsWorking@100'
 
 
 
-// Create a User using: POST '/api/auth/'. Doesn't require Auth
+// ROUTE 1:  Create a User using: POST '/api/auth/createuser'. Doesn't require Auth
 router.post('/createuser', [
     body('Username', 'Enter a valid Username').isLength({ min: 4 }),
     body('Email', 'Enter a valid Email').isEmail(),
@@ -65,7 +65,7 @@ router.post('/createuser', [
     }
 });
 
-// authenticate a User using: POST '/api/auth/'. Doesn't require login
+// ROUTE 2: authenticate a User using: POST '/api/auth/login'. Doesn't require login
 
 router.post('/login', [
     
@@ -109,7 +109,7 @@ router.post('/login', [
 
         const data = {
             User: {
-                id: User.id
+                id: user._id
             }
         }
         const authToken= jwt.sign(data, JWT_SECRET);
@@ -129,5 +129,25 @@ router.post('/login', [
 });
 
 
+
+// ROUTE 3: Get logged in user details using: POST '/api/auth/getuser'. Login required
+// ROUTE 3: Get logged in user details using: POST '/api/auth/getuser'. Login required
+router.post('/getuser', fetchuser, async (req, res) => {
+    try {
+        const userId = req.user.id; // Access user ID from req.user
+        console.log("User ID from req.user:", userId); // Log for debugging
+
+        const user = await User.findById(userId).select("-password");
+
+        if (!user) {
+            return res.status(404).send({ error: "User not found" });
+        }
+
+        res.json(user); // Send the user data as a response
+    } catch (error) {
+        console.error("Error fetching user:", error.message);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 module.exports = router;
