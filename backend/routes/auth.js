@@ -32,8 +32,9 @@ router.post('/createuser', [
         }
 
         // Hash the password before saving it
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
+        const salt = await bcrypt.genSalt(10); // we await cause it return promise 
+        const hashedPassword = await bcrypt.hash(req.body.password, salt); // we await cause it return promise 
+        
         // Create the new user
         const newUser = await User.create({
             Username: req.body.Username,
