@@ -65,4 +65,69 @@ router.post('/createuser', [
     }
 });
 
+// authenticate a User using: POST '/api/auth/'. Doesn't require login
+
+router.post('/login', [
+    
+    // Custom validation to check if either Email or Phone_Number is provided
+    body('Email').optional({ checkFalsy: true }).isEmail().withMessage('Enter a valid Email'),
+    body('Phone_Number').optional({ checkFalsy: true }).isLength({ min: 10, max: 10 }).isNumeric().withMessage('Enter a valid Phone number'),
+    body('password', 'Password cannot be blank').exists(),
+], async (req, res) => {
+
+    // Check for validation errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    //when correct email  and password is entered we will use destructuring to find email/phonenumber fom body 
+
+    const {Email, Phone_Number, password} = req.body;
+    // using try and promise to find the credential's entered user is exists or not 
+    try {
+        let user;
+
+        // Check if the email or phone number is provided and search accordingly
+        if (Email) {
+            user = await User.findOne({ Email: Email.toLowerCase() });
+            if(!user){
+                return res.status(400).json({error: "Please try to login with correct credentials"})
+            }
+        } else if (Phone_Number) {
+            user = await User.findOne({ Phone_Number });
+            if(!user){
+                return res.status(400).json({error: "Please try to login with correct credentials"})
+            }
+        }
+
+        const passwordcompare = await bcrypt.compare(password, user.password);
+        if(!passwordcompare){
+            return res.status(400).json({error: "Please try to login with correct credentials"})
+        }
+
+
+        const data = {
+            User: {
+                id: User.id
+            }
+        }
+        const authToken= jwt.sign(data, JWT_SECRET);
+        //console.log(authToken);
+        res.json({ authToken})
+
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error")
+    }
+
+
+
+
+
+});
+
+
+
 module.exports = router;
