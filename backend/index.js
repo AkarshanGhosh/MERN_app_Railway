@@ -16,6 +16,7 @@ app.use(express.json())
 // Define a route for the root URL
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/division', require('./routes/division'))
+app.use('/api/division', require('./routes/train'))
 
 // Start the server and listen on the defined port
 app.listen(port, () => {

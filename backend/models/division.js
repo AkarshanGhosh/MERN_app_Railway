@@ -1,33 +1,31 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-//we have to make schema
-const UserSchema = new Schema({
-    Division:{
-        type: string,
+// Define the schema for train divisions
+const DivisionSchema = new Schema({
+    Division: {
+        type: String, // Should be capital 'S'
         required: true,
-            
-
     },
-    States:{
-        type: string,
+    States: {
+        type: String, // Should be capital 'S'
         required: true,
-        
     },
-    Cities:{
-        type: integer,
+    Cities: {
+        type: String, 
         required: true,
         unique: true 
     },
-    Train_Name:{
-        type: string,
+    Train_Name: {
+        type: String, // Should be capital 'S'
         required: true
     },
-    Train_Number:{
-        type: string,
+    Train_Number: {
+        type: String, // Should be capital 'S'
         required: true,
         unique: true
     },
-    
-  });
-  module.exports = mongoose.model('division', DivisionSchema);
+});
+
+// Export the model
+module.exports = mongoose.model('Division', DivisionSchema); // Changed 'division' to 'Division' for better convention
