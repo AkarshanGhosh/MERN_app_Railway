@@ -3,12 +3,21 @@ const { Schema } = mongoose;
 
 // Define the schema for train data
 const TrainSchema = new Schema({
-    
-    
-    date: {
+    Division:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Division'
+
+    },
+    coach: {
+        type: String, // Store coach information (e.g., coach number or type)
+        required: true // Optional: Set to true if coach is mandatory
+    },
+
+    date:{
         type: Date,
         default: Date.now
     },
+
     latitude: {
         type: String, // Storing as string to preserve formatting
     },

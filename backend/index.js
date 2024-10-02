@@ -1,7 +1,7 @@
 // Import the MongoDB connection functions
 const connectToMongo = require('./db'); // Connection for the login database
 const connectToDivisionDB = require('./divisiondb'); // Connection for the division database
-
+//const connectToTrainDB = require('./traindb.js'); // connecting to coach db
 // Import express
 const express = require('express');
 
@@ -10,6 +10,9 @@ connectToMongo();
 
 // Connect to MongoDB for division database
 connectToDivisionDB();
+
+//Connect to MongoDB for Train Database
+//connectToTrainDB();
 
 // Create an instance of the Express application
 const app = express();
