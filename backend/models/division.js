@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
 // Define the schema for Division
-const DivisionSchema = new mongoose.Schema({
+const DivisionSchema = new Schema({
     Division: {
         type: String,
         required: true
@@ -26,5 +27,5 @@ const DivisionSchema = new mongoose.Schema({
 
 // Create the Division model
 const Division = mongoose.model('Division', DivisionSchema);
-
-module.exports = Division;
+Division.createIndexes()
+module.exports = Division
