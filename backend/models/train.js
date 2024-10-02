@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 const TrainSchema = new Schema({
     Division:{
         type: mongoose.Schema.Types.ObjectId,
-        ref:'Division'
+        ref:'divisions'
 
     },
     coach: {
