@@ -3,6 +3,8 @@ const { Schema } = mongoose;
 
 // Define the schema for train data
 const TrainSchema = new Schema({
+    
+    
     date: {
         type: Date,
         default: Date.now
