@@ -26,6 +26,6 @@ const DivisionSchema = new Schema({
 }, { timestamps: true }); // Adds createdAt and updatedAt timestamps automatically
 
 // Create the Division model
-const Division = mongoose.model('Division', DivisionSchema);
+const Division = mongoose.model('divisions', DivisionSchema);
 Division.createIndexes()
 module.exports = Division
