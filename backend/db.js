@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const mongoURI = "mongodb://localhost:27017/login"; // Ensure this matches your database name
 
+
 const connectToMongo = async () => {
     try {
         await mongoose.connect(mongoURI);

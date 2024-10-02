@@ -1,31 +1,30 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
 
-// Define the schema for train divisions
-const DivisionSchema = new Schema({
+// Define the schema for Division
+const DivisionSchema = new mongoose.Schema({
     Division: {
-        type: String, // Should be capital 'S'
-        required: true,
+        type: String,
+        required: true
     },
     States: {
-        type: String, // Should be capital 'S'
-        required: true,
+        type: String,
+        required: true
     },
     Cities: {
-        type: String, 
-        required: true,
-        unique: true 
+        type: String, // Single city name as a string
+        required: true
     },
     Train_Name: {
-        type: String, // Should be capital 'S'
+        type: String,
         required: true
     },
     Train_Number: {
-        type: String, // Should be capital 'S'
-        required: true,
-        unique: true
-    },
-});
+        type: String,
+        required: true
+    }
+}, { timestamps: true }); // Adds createdAt and updatedAt timestamps automatically
 
-// Export the model
-module.exports = mongoose.model('Division', DivisionSchema); // Changed 'division' to 'Division' for better convention
+// Create the Division model
+const Division = mongoose.model('Division', DivisionSchema);
+
+module.exports = Division;
