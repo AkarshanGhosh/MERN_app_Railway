@@ -1,0 +1,182 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Railway",
+    "collectionId": "83ce5249-dda4-4034-a726-4f02368a6207",
+    "dateExported": "2024-10-02T20:52:00.730Z",
+    "version": "1.2",
+    "folders": [
+        {
+            "_id": "9a1c31e9-18cd-4c3f-b354-fabbfe03105a",
+            "name": "Authentication",
+            "containerId": "",
+            "created": "2024-09-30T18:45:53.775Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "3b20db71-17c8-469a-b0a9-6e9a806a0d5e",
+            "name": "Trains",
+            "containerId": "",
+            "created": "2024-10-01T21:54:17.620Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "0e3d70cc-98aa-4008-8d07-2cbd5ce812c3",
+            "name": "divisions",
+            "containerId": "",
+            "created": "2024-10-02T10:37:48.698Z",
+            "sortNum": 40000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "7c26a5dc-1f4f-4927-911a-2e3a8b9a9a81",
+            "colId": "83ce5249-dda4-4034-a726-4f02368a6207",
+            "containerId": "9a1c31e9-18cd-4c3f-b354-fabbfe03105a",
+            "name": "Create a new user",
+            "url": "localhost:5000/api/auth/createuser",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-09-30T18:46:28.060Z",
+            "modified": "2024-10-02T10:25:50.164Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"Username\": \"Jon3CC67\",\n  \"Email\": \"jon3@gmail.com\",\n  \"Phone_Number\": \"1333567800\",\n  \"password\":\"ronuchiha\"\n  \n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "50f1504f-628c-43ee-98d3-2083568dc81a",
+            "colId": "83ce5249-dda4-4034-a726-4f02368a6207",
+            "containerId": "9a1c31e9-18cd-4c3f-b354-fabbfe03105a",
+            "name": "User login using creds",
+            "url": "localhost:5000/api/auth/login",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-10-01T17:45:02.827Z",
+            "modified": "2024-10-01T17:56:02.681Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"Email\": \"jon2@gmail.com\",\n  \"Phone_Number\": \"1334567800\",\n  \"password\":\"ronuchiha\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "a93d0fb9-4466-4084-be3f-6a7d418f7b48",
+            "colId": "83ce5249-dda4-4034-a726-4f02368a6207",
+            "containerId": "3b20db71-17c8-469a-b0a9-6e9a806a0d5e",
+            "name": "add coach data",
+            "url": "localhost:5000/api/train/create",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-10-02T15:28:00.125Z",
+            "modified": "2024-10-02T18:45:45.150Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"coach\": \"AC-2\",\n    \"latitude\": \"27.1445\",\n    \"longitude\": \"92.7362\",\n    \"chain_status\": \"pulled\",\n    \"temperature\": \"25\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "7c286bdf-9709-4309-be13-06d1dd1aae74",
+            "colId": "83ce5249-dda4-4034-a726-4f02368a6207",
+            "containerId": "9a1c31e9-18cd-4c3f-b354-fabbfe03105a",
+            "name": "Get User Data",
+            "url": "localhost:5000/api/auth/getuser",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-10-01T20:48:27.939Z",
+            "modified": "2024-10-01T22:05:15.930Z",
+            "headers": [
+                {
+                    "name": "auth-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoiNjZmYzcxZWUwYWMzMWQzZjNkMmJlNWJhIn0sImlhdCI6MTcyNzgyMDI3NX0.G1A7-C6-wasarOUO-pkbluzEdB63Ep1mDQ_6YVclnWc"
+                }
+            ]
+        },
+        {
+            "_id": "c4c68e77-7d51-406c-b638-8383afe452c6",
+            "colId": "83ce5249-dda4-4034-a726-4f02368a6207",
+            "containerId": "3b20db71-17c8-469a-b0a9-6e9a806a0d5e",
+            "name": "fetch coach data",
+            "url": "localhost:5000/api/train/fetch",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2024-10-02T07:23:27.883Z",
+            "modified": "2024-10-02T18:45:51.765Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"coach\": \"AC-2\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "cd1c8b25-eb59-439a-b48c-8560f45c4d84",
+            "colId": "83ce5249-dda4-4034-a726-4f02368a6207",
+            "containerId": "0e3d70cc-98aa-4008-8d07-2cbd5ce812c3",
+            "name": "creating division",
+            "url": "localhost:5000/api/division/create",
+            "method": "POST",
+            "sortNum": 100000,
+            "created": "2024-10-02T10:38:13.569Z",
+            "modified": "2024-10-02T10:53:11.476Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"Division\": \"NFR\",\n    \"States\": \"Assam\",\n    \"Cities\": \"Guwahati\", \n    \"Train_Name\": \"Train2\",\n    \"Train_Number\": \"78901\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "fedd3d5c-e5e6-4297-9165-758a49ee6999",
+            "colId": "83ce5249-dda4-4034-a726-4f02368a6207",
+            "containerId": "0e3d70cc-98aa-4008-8d07-2cbd5ce812c3",
+            "name": "Get all divisions",
+            "url": "localhost:5000/api/division/city",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2024-10-02T10:39:32.113Z",
+            "modified": "2024-10-02T10:52:15.349Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"city\": \"kolkata\"\n}",
+                "form": []
+            }
+        }
+    ],
+    "ref": "Uijfe07-N0XoaiU-IRxhr6JGgcOKLCnyJsN_WKgyhTuUbNfRVr9_nYfg69ON3m7mbSNTB2vyUXVSSqiqhDg3HQ"
+}
