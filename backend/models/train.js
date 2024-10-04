@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 // Define the schema for train data
 const TrainSchema = new Schema({
-    Division: {
+    division: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'divisions',
         //required: true // Ensure this field is required
