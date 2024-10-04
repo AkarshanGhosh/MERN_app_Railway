@@ -23,9 +23,9 @@ const DivisionSchema = new Schema({
         type: String,
         required: true
     }
-}, { timestamps: true }); // Adds createdAt and updatedAt timestamps automatically
+}, { timestamps: true });
 
-// Create the Division model
-const Division = mongoose.model('divisions', DivisionSchema);
-Division.createIndexes()
-module.exports = Division
+// Check if the model already exists to avoid overwriting
+const Division = mongoose.models.Division || mongoose.model('Divisions', DivisionSchema);
+
+module.exports = Division;

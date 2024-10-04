@@ -1,9 +1,7 @@
-//To do now we have to make token for each assigned train so that our data of coach will be unique to that token only  
-
-
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const Train = require('../models/Train'); // Importing the Train model
+
 
 const router = express.Router();
 
@@ -82,5 +80,4 @@ router.get('/fetch', async (req, res) => {
 
 
 
-
-module.exports = router
+module.exports = router;

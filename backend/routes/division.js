@@ -1,6 +1,8 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const Division = require('../models/Division'); // Ensure this path is correct
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = 'OurWebAppIsWorking@100';
 
 const router = express.Router();
 
@@ -46,12 +48,27 @@ router.post('/create', [
             Train_Number: req.body.Train_Number,
         });
 
-        res.status(201).json({ message: "Division created successfully", newDivision });
+        // Prepare data for the token
+        const data = {
+            Division: {
+                id: newDivision._id // Use the newly created Division Object ID
+            }
+        };
+
+        // Generate the JWT token
+        const Token = jwt.sign(data, JWT_SECRET);
+        console.log(Token);
+
+        // Respond with the token and the newly created division
+        res.status(201).json({ message: "Division created successfully", newDivision, Token });
     } catch (error) {
         console.error('Error creating division:', error);
         res.status(500).send({ error: "Internal Server Error" });
     }
 });
+
+
+
 
 // ROUTE 2: Get train names and numbers by city using: GET '/api/division/city'. Doesn't require Auth
 router.get('/city', async (req, res) => {
@@ -75,18 +92,37 @@ router.get('/city', async (req, res) => {
             return res.status(404).json({ error: `No trains found in ${city}` });
         }
 
-        // Extract train details
-        const trains = divisions.map(division => ({
-            Train_Name: division.Train_Name,
-            Train_Number: division.Train_Number
-        }));
+        // Extract train details and generate tokens for each train
+        const trainsWithTokens = divisions.map(division => {
+            const trainData = {
+                Train_Name: division.Train_Name,
+                Train_Number: division.Train_Number
+            };
 
-        res.json({ city: city, trains: trains });
+            // Prepare data for the token
+            const data = {
+                Train: {
+                    Train_Name: trainData.Train_Name,
+                    Train_Number: trainData.Train_Number
+                }
+            };
+
+            // Generate the JWT token
+            const Token = jwt.sign(data, JWT_SECRET);
+
+            return {
+                ...trainData,
+                Token // Add the token to the train details
+            };
+        });
+
+        res.json({ city: city, trains: trainsWithTokens });
     } catch (error) {
         console.error('Error fetching trains by city:', error);
         res.status(500).send({ error: "Internal Server Error" });
     }
 });
+
 
 // ROUTE 3: Update a division using: PUT '/api/division/update/:id'. Requires Auth
 router.put('/update/:id', [
