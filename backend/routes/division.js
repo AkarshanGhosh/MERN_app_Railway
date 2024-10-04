@@ -51,7 +51,7 @@ router.post('/create', [
         // Prepare data for the token
         const data = {
             Division: {
-                id: newDivision._id // Use the newly created Division Object ID
+                id: division._id // Use the newly created Division Object ID
             }
         };
 

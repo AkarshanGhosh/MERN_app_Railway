@@ -1,7 +1,10 @@
 const express = require('express');
+
 const { body, validationResult } = require('express-validator');
 const Train = require('../models/train'); // Importing the Train model
 const fetchDivision = require('../middleware/fetchdivision'); // fetch data from the respective token 
+//const { get } = require('mongoose');
+
 
 
 const router = express.Router();
@@ -14,7 +17,7 @@ router.post('/create', fetchDivision, [
 
     try {
         // Destructure the required data from the request body
-        const { coach, latitude, longitude, chain_status, temperature, division, trainName, trainNumber } = req.body;
+        const { coach, latitude, longitude, chain_status, temperature} = req.body;
 
         // Validate the request body for errors
         const error = validationResult(req);
@@ -29,10 +32,10 @@ router.post('/create', fetchDivision, [
             longitude,
             chain_status,
             temperature,
-            division: req.division.id, // Assuming req.division.id contains the division ID
-            trainName: req.division.Train_Name, // Access train name from the token
-            trainNumber: req.division.Train_Number // Access train number from the token
-        });
+            division: req.division.id // Assuming req.division.id contains the division ID
+            //trainName: req.Division.Train_Name, // Access train name from the token
+            //trainNumber: req.Division.Train_Number // Access train number from the token
+        })
 
         // Save the train data to the database
         const savedTrain = await train.save();

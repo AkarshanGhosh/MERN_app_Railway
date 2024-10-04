@@ -1,6 +1,7 @@
 var jwt = require('jsonwebtoken');
 const JWT_SECRET = 'OurWebAppIsWorking@100';
 
+
 const fetchDivision = (req, res, next) => {
     const token = req.header('Token');
 
