@@ -1,6 +1,6 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
-const Train = require('../models/Train'); // Importing the Train model
+const Train = require('../models/train'); // Importing the Train model
 
 
 const router = express.Router();
