@@ -5,7 +5,8 @@ const { Schema } = mongoose;
 const TrainSchema = new Schema({
     Division: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'divisions'
+        ref: 'divisions',
+        //required: true // Ensure this field is required
     },
     coach: {
         type: String, // Store coach information (e.g., coach number or type)
