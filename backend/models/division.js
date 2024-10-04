@@ -26,6 +26,6 @@ const DivisionSchema = new Schema({
 }, { timestamps: true });
 
 // Check if the model already exists to avoid overwriting
-const Division = mongoose.models.Division || mongoose.model('Divisions', DivisionSchema);
+const Division = mongoose.models.Division || mongoose.model('divisions', DivisionSchema);
 
 module.exports = Division;

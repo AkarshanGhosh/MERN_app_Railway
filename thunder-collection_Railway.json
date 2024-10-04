@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "collectionName": "Railway",
     "collectionId": "83ce5249-dda4-4034-a726-4f02368a6207",
-    "dateExported": "2024-10-02T20:52:00.730Z",
+    "dateExported": "2024-10-04T16:56:59.844Z",
     "version": "1.2",
     "folders": [
         {
@@ -81,16 +81,20 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2024-10-02T15:28:00.125Z",
-            "modified": "2024-10-02T18:45:45.150Z",
+            "modified": "2024-10-04T16:52:05.153Z",
             "headers": [
                 {
                     "name": "Content-Type",
                     "value": "application/json"
+                },
+                {
+                    "name": "Token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUcmFpbiI6eyJUcmFpbl9OYW1lIjoiVHJhaW4yIiwiVHJhaW5fTnVtYmVyIjoiMTI0NDU2In0sImlhdCI6MTcyODA0MTkyM30.MaHNahAdelRvnVaANaRrXr4V_rCkra6k77wukvpMJ8A"
                 }
             ],
             "body": {
                 "type": "json",
-                "raw": "{\n    \"coach\": \"AC-2\",\n    \"latitude\": \"27.1445\",\n    \"longitude\": \"92.7362\",\n    \"chain_status\": \"pulled\",\n    \"temperature\": \"25\"\n}",
+                "raw": "{\n    \"coach\": \"AC-2\",\n    \"latitude\": \"57.1445\",\n    \"longitude\": \"99.7362\",\n    \"chain_status\": \"Normal\",\n    \"temperature\": \"20\"\n}",
                 "form": []
             }
         },
@@ -120,8 +124,12 @@
             "method": "GET",
             "sortNum": 60000,
             "created": "2024-10-02T07:23:27.883Z",
-            "modified": "2024-10-02T18:45:51.765Z",
+            "modified": "2024-10-04T16:52:22.744Z",
             "headers": [
+                {
+                    "name": "Token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJEaXZpc2lvbiI6eyJpZCI6IjY2ZmZkM2E1NzIwOTVkZDE1YmE0OTZlNyJ9LCJpYXQiOjE3MjgwNDE4OTN9.isKSk7eLJ_gKS80d0Px6WYuBjSTHrTnsUrQleU4GbBo"
+                },
                 {
                     "name": "Content-Type",
                     "value": "application/json"
@@ -142,7 +150,7 @@
             "method": "POST",
             "sortNum": 100000,
             "created": "2024-10-02T10:38:13.569Z",
-            "modified": "2024-10-02T10:53:11.476Z",
+            "modified": "2024-10-04T11:38:13.127Z",
             "headers": [
                 {
                     "name": "Content-Type",
@@ -151,7 +159,7 @@
             ],
             "body": {
                 "type": "json",
-                "raw": "{\n    \"Division\": \"NFR\",\n    \"States\": \"Assam\",\n    \"Cities\": \"Guwahati\", \n    \"Train_Name\": \"Train2\",\n    \"Train_Number\": \"78901\"\n}",
+                "raw": "{\n    \"Division\": \"NFR\",\n    \"States\": \"Assam\",\n    \"Cities\": \"Guwahati\", \n    \"Train_Name\": \"Train1\",\n    \"Train_Number\": \"123456\"\n}",
                 "form": []
             }
         },
@@ -164,7 +172,7 @@
             "method": "GET",
             "sortNum": 110000,
             "created": "2024-10-02T10:39:32.113Z",
-            "modified": "2024-10-02T10:52:15.349Z",
+            "modified": "2024-10-02T21:03:20.171Z",
             "headers": [
                 {
                     "name": "Content-Type",
@@ -173,10 +181,27 @@
             ],
             "body": {
                 "type": "json",
-                "raw": "{\n    \"city\": \"kolkata\"\n}",
+                "raw": "{\n    \"city\": \"Guwahati\"\n}",
                 "form": []
             }
+        },
+        {
+            "_id": "8e89d1ad-1dc3-4f99-8e33-e62983a9d514",
+            "colId": "83ce5249-dda4-4034-a726-4f02368a6207",
+            "containerId": "3b20db71-17c8-469a-b0a9-6e9a806a0d5e",
+            "name": "fetch coach by train name",
+            "url": "localhost:5000/api/train/Train1/coaches",
+            "method": "GET",
+            "sortNum": 120000,
+            "created": "2024-10-04T10:44:55.687Z",
+            "modified": "2024-10-04T11:02:37.100Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
         }
     ],
-    "ref": "Uijfe07-N0XoaiU-IRxhr6JGgcOKLCnyJsN_WKgyhTuUbNfRVr9_nYfg69ON3m7mbSNTB2vyUXVSSqiqhDg3HQ"
+    "ref": "Uijfe07-N0XoaiU-IRxhr7WjTnTwF-3f7idexvKGL5qDt5vxLGFJtWdd6b1ceZqHynVlFlFsqaiyCQGXILLlWg"
 }

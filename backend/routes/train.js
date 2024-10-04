@@ -1,57 +1,68 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
 const Train = require('../models/train'); // Importing the Train model
+const fetchDivision = require('../middleware/fetchdivision'); // fetch data from the respective token 
 
 
 const router = express.Router();
 
 // ROUTE 1: Add train data using: POST '/api/train/create'
-router.post('/create', [
+router.post('/create', fetchDivision, [
     body('coach', 'Enter a valid coach number or type').notEmpty(),
-    body('latitude', 'Enter a valid latitude').notEmpty(),
-    body('longitude', 'Enter a valid longitude').notEmpty(),
     body('chain_status', 'Enter a valid chain status').notEmpty(),
-    body('temperature', 'Enter a valid temperature').notEmpty(),
 ], async (req, res) => {
-    // Check for validation errors
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
 
     try {
-        // Create a new train entry with the provided data
-        const newTrain = await Train.create({
-            coach: req.body.coach,
-            latitude: req.body.latitude,
-            longitude: req.body.longitude,
-            chain_status: req.body.chain_status,
-            temperature: req.body.temperature,
+        // Destructure the required data from the request body
+        const { coach, latitude, longitude, chain_status, temperature, division, trainName, trainNumber } = req.body;
+
+        // Validate the request body for errors
+        const error = validationResult(req);
+        if (!error.isEmpty()) {
+            return res.status(400).json({ errors: error.array() });
+        }
+
+        // Create a new train entry
+        const train = new Train({
+            coach,
+            latitude,
+            longitude,
+            chain_status,
+            temperature,
+            division: req.division.id, // Assuming req.division.id contains the division ID
+            trainName: req.division.Train_Name, // Access train name from the token
+            trainNumber: req.division.Train_Number // Access train number from the token
         });
 
-        // Send response with success message and the created train data
-        res.status(201).json({ message: "Train data added successfully", newTrain });
+        // Save the train data to the database
+        const savedTrain = await train.save();
+
+        // Send success response with the created train data
+        res.status(201).json({ message: "Train data added successfully", savedTrain });
+
     } catch (error) {
         console.error('Error adding train data:', error);
         res.status(500).send({ error: "Internal Server Error" });
     }
 });
 
-// ROUTE 2: Fetch train data by coach name using: POST '/api/train/fetch'
-router.get('/fetch', async (req, res) => {
+// ROUTE 2: Fetch train data by coach name using: GET '/api/train/fetch'
+router.get('/fetch', fetchDivision, async (req, res) => {
     const { coach } = req.body; // Get coach name from request body
 
+    // Check if coach name is provided
     if (!coach) {
         return res.status(400).json({ error: "Coach name is required." });
     }
 
     try {
-        // Convert input coach to lowercase for case insensitive search
+        // Convert input coach to lowercase for case-insensitive search
         const lowerCaseCoach = coach.toLowerCase();
 
         // Fetch train data from the Train collection, filtering by coach and populating the Division reference
         const trains = await Train.find({
-            coach: { $regex: new RegExp(lowerCaseCoach, 'i') } // 'i' flag for case insensitive
+            division: req.division.id, // Ensure we're filtering by division
+            coach: { $regex: new RegExp(lowerCaseCoach, 'i') } // 'i' flag for case-insensitive match
         })
         .populate('Division', 'Train_Name'); // Populate Division field to get Train_Name
 
@@ -60,15 +71,20 @@ router.get('/fetch', async (req, res) => {
             return res.status(404).json({ message: `No train data found for coach: ${coach}` });
         }
 
-        // Map the trains to include the train name along with other details
-        const responseTrains = trains.map(train => ({
-            trainName: train.Division ? train.Division.Train_Name : "Unknown Train", // Check if Division is defined
-            coach: train.coach,
-            latitude: train.latitude,
-            longitude: train.longitude,
-            chain_status: train.chain_status,
-            temperature: train.temperature
-        }));
+        // Map the fetched trains to the desired response format
+        const responseTrains = trains.map(train => {
+            // Access the train name from the populated Division
+            
+            
+            return {
+                trainName: train.trainName, // Use the accessed train name
+                coach: train.coach,
+                latitude: train.latitude,
+                longitude: train.longitude,
+                chain_status: train.chain_status,
+                temperature: train.temperature
+            };
+        });
 
         // Return the train data in the response
         res.json({ coach: coach, trains: responseTrains });
