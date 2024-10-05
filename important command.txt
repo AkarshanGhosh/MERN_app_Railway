@@ -34,3 +34,5 @@ PS C:\Users\user> npx nodemon .\index.js
 PS C:\Users\user>
 ------------------------------------------------------------------------------------------
 
+run both backend and frontend 
+npm run both
