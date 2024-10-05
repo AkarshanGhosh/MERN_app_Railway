@@ -1,0 +1,5 @@
+recently what we have done is just connected two monogobd collections {division} and {Train} by Populate Query, Joins in MongoDB
+
+Next to do for backend :-
+ 1. whenever user add a new Divison data with a Train Name a new collection should be created 
+ so that the coaches for that train is stored there only and user can fetch the data 

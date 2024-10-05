@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "collectionName": "Railway",
     "collectionId": "83ce5249-dda4-4034-a726-4f02368a6207",
-    "dateExported": "2024-10-04T16:56:59.844Z",
+    "dateExported": "2024-10-05T11:03:21.612Z",
     "version": "1.2",
     "folders": [
         {
@@ -81,20 +81,16 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2024-10-02T15:28:00.125Z",
-            "modified": "2024-10-04T16:52:05.153Z",
+            "modified": "2024-10-05T11:01:49.457Z",
             "headers": [
                 {
                     "name": "Content-Type",
                     "value": "application/json"
-                },
-                {
-                    "name": "Token",
-                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUcmFpbiI6eyJUcmFpbl9OYW1lIjoiVHJhaW4yIiwiVHJhaW5fTnVtYmVyIjoiMTI0NDU2In0sImlhdCI6MTcyODA0MTkyM30.MaHNahAdelRvnVaANaRrXr4V_rCkra6k77wukvpMJ8A"
                 }
             ],
             "body": {
                 "type": "json",
-                "raw": "{\n    \"coach\": \"AC-2\",\n    \"latitude\": \"57.1445\",\n    \"longitude\": \"99.7362\",\n    \"chain_status\": \"Normal\",\n    \"temperature\": \"20\"\n}",
+                "raw": "{   \"Train_name\": \"Train1\",\n    \"coach\": \"AC-2\",\n    \"latitude\": \"57.1445\",\n    \"longitude\": \"99.7362\",\n    \"chain_status\": \"Normal\",\n    \"temperature\": \"20\"\n    \n}",
                 "form": []
             }
         },
@@ -124,11 +120,11 @@
             "method": "GET",
             "sortNum": 60000,
             "created": "2024-10-02T07:23:27.883Z",
-            "modified": "2024-10-04T16:52:22.744Z",
+            "modified": "2024-10-05T11:02:09.899Z",
             "headers": [
                 {
                     "name": "Token",
-                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJEaXZpc2lvbiI6eyJpZCI6IjY2ZmZkM2E1NzIwOTVkZDE1YmE0OTZlNyJ9LCJpYXQiOjE3MjgwNDE4OTN9.isKSk7eLJ_gKS80d0Px6WYuBjSTHrTnsUrQleU4GbBo"
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJUcmFpbiI6eyJUcmFpbl9OYW1lIjoiVHJhaW4xIiwiVHJhaW5fTnVtYmVyIjoiMTIzNDU2In0sImlhdCI6MTcyODA2MTE1NH0.IlhjUNWB-YZTMZsE98XZ1p2jnA5jCS68NasmMtpT2E8"
                 },
                 {
                     "name": "Content-Type",
@@ -137,7 +133,7 @@
             ],
             "body": {
                 "type": "json",
-                "raw": "{\n    \"coach\": \"AC-2\"\n}",
+                "raw": "{   \"Train_name\":\"Train2\",\n    \"coach\": \"AC-1\"\n}",
                 "form": []
             }
         },
@@ -184,24 +180,7 @@
                 "raw": "{\n    \"city\": \"Guwahati\"\n}",
                 "form": []
             }
-        },
-        {
-            "_id": "8e89d1ad-1dc3-4f99-8e33-e62983a9d514",
-            "colId": "83ce5249-dda4-4034-a726-4f02368a6207",
-            "containerId": "3b20db71-17c8-469a-b0a9-6e9a806a0d5e",
-            "name": "fetch coach by train name",
-            "url": "localhost:5000/api/train/Train1/coaches",
-            "method": "GET",
-            "sortNum": 120000,
-            "created": "2024-10-04T10:44:55.687Z",
-            "modified": "2024-10-04T11:02:37.100Z",
-            "headers": [
-                {
-                    "name": "Content-Type",
-                    "value": "application/json"
-                }
-            ]
         }
     ],
-    "ref": "Uijfe07-N0XoaiU-IRxhr7WjTnTwF-3f7idexvKGL5qDt5vxLGFJtWdd6b1ceZqHynVlFlFsqaiyCQGXILLlWg"
+    "ref": "Uijfe07-N0XoaiU-IRxhr5sI66NZgHCvTOAGanhpSqs8gihLkK5z1EQISoIR3b_-58fQBQZzjD5Mj3zUdVSiXw"
 }
