@@ -3,10 +3,9 @@ const { Schema } = mongoose;
 
 // Define the schema for train data
 const TrainSchema = new Schema({
-    division: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'divisions',
-        //required: true // Ensure this field is required
+    Train_name: {
+        type: String,
+        required: true // Ensure this field is required
     },
     coach: {
         type: String, // Store coach information (e.g., coach number or type)
@@ -27,11 +26,12 @@ const TrainSchema = new Schema({
     },
     temperature: {
         type: String, // Store temperature as string
+    },
+    Division: { // Define Division as a reference to the Division model
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Division' // Referencing the Division model
     }
 });
 
 // Check if the model already exists to avoid overwriting
-const Train = mongoose.models.Train || mongoose.model('Train', TrainSchema);
-
-
-module.exports = Train;
+const Division = module.exports =  mongoose.model('train', TrainSchema);
