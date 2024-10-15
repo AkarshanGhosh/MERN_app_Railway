@@ -169,5 +169,39 @@ router.delete('/delete/:id', async (req, res) => {
         res.status(500).send({ error: "Internal Server Error" });
     }
 });
+// Existing routes...
+
+
+// ROUTE 5: Check if train number exists using: POST '/api/division/check-train'. Doesn't require Auth
+
+router.post('/check-train', [
+    body('trainNumber', 'Train number cannot be blank').exists().isLength({ min: 1 }).withMessage('Train number is required.'),
+], async (req, res) => {
+    // Check for validation errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { trainNumber } = req.body; // Get trainNumber from the request body
+
+    try {
+        // Check if the train exists in the database
+        const train = await Division.findOne({ Train_Number: trainNumber });
+
+        // Respond based on whether the train exists
+        if (train) {
+            return res.json({ message: `Entered train number ${trainNumber} exists.` }); // Train exists
+        } else {
+            return res.status(404).json({ message: `No train exists with the number ${trainNumber}.` }); // Train does not exist
+        }
+    } catch (error) {
+        console.error('Error fetching train:', error);
+        return res.status(500).json({ message: 'Internal Server Error' }); // Handle server errors
+    }
+});
+
+  
+// Existing routes...
 
 module.exports = router;
