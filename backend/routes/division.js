@@ -70,26 +70,27 @@ router.post('/create', [
 
 
 
-// ROUTE 2: Get train names and numbers by city using: GET '/api/division/city'. Doesn't require Auth
+// ROUTE 2: Get train names and numbers by division and city using: GET '/api/division/city'. Doesn't require Auth
 router.get('/city', async (req, res) => {
-    const { city } = req.body; // Get city from request body
+    const { division, city } = req.query; // Get division and city from query parameters
 
-    if (!city) {
-        return res.status(400).json({ error: "City name is required." });
+    if (!division || !city) {
+        return res.status(400).json({ error: "Both division and city names are required." });
     }
 
     try {
         // Convert input city to lowercase for case insensitive search
         const lowerCaseCity = city.toLowerCase();
 
-        // Find divisions where the city matches, ignoring case
+        // Find divisions where the division matches and the city matches, ignoring case
         const divisions = await Division.find({
+            Division: division, // Match the division exactly
             Cities: { $regex: new RegExp(lowerCaseCity, 'i') } // 'i' flag for case insensitive
         });
 
-        // Check if any trains exist for the specified city
+        // Check if any trains exist for the specified division and city
         if (divisions.length === 0) {
-            return res.status(404).json({ error: `No trains found in ${city}` });
+            return res.status(404).json({ error: `No trains found in ${city} under ${division}` });
         }
 
         // Extract train details and generate tokens for each train
@@ -116,12 +117,13 @@ router.get('/city', async (req, res) => {
             };
         });
 
-        res.json({ city: city, trains: trainsWithTokens });
+        res.json({ division, city, trains: trainsWithTokens });
     } catch (error) {
-        console.error('Error fetching trains by city:', error);
+        console.error('Error fetching trains by division and city:', error);
         res.status(500).send({ error: "Internal Server Error" });
     }
 });
+
 
 
 // ROUTE 3: Update a division using: PUT '/api/division/update/:id'. Requires Auth
