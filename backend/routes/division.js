@@ -51,7 +51,7 @@ router.post('/create', [
         // Prepare data for the token
         const data = {
             Division: {
-                id: division._id // Use the newly created Division Object ID
+                id: newDivision._id // Use the newly created Division Object ID
             }
         };
 
@@ -66,6 +66,8 @@ router.post('/create', [
         res.status(500).send({ error: "Internal Server Error" });
     }
 });
+
+
 
 
 
