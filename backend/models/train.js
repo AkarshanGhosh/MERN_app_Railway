@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 // Define the schema for train data
 const TrainSchema = new Schema({
-    Train_name: {
+    Train_number: { // Updated field name
         type: String,
         required: true // Ensure this field is required
     },
@@ -34,4 +34,4 @@ const TrainSchema = new Schema({
 });
 
 // Check if the model already exists to avoid overwriting
-const Division = module.exports =  mongoose.model('train', TrainSchema);
+const Train = module.exports = mongoose.model('train', TrainSchema);
