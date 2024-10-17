@@ -45,7 +45,7 @@ router.post('/create', [
 
 // ROUTE 2: Fetch train data by train number using: GET '/api/train/fetch'
 router.get('/fetch', async (req, res) => {
-    const { trainNumber, coach } = req.body;
+    const { trainNumber, coach } = req.query; // Change req.body to req.query
 
     if (!trainNumber || !coach) {
         return res.status(400).json({ error: "Both train number and coach are required." });
@@ -77,6 +77,7 @@ router.get('/fetch', async (req, res) => {
         res.status(500).send({ error: "Internal Server Error" });
     }
 });
+
 
 // ROUTE 3: Fetch unique coaches by train number using: GET '/api/train/coaches'
 router.get('/coaches', async (req, res) => {
