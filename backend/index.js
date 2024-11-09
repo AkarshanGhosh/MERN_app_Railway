@@ -10,7 +10,7 @@ const http = require('http'); // Import http for Socket.IO
 
 // Create an instance of the Express application
 const app = express();
-const port = 5000; // Define the port number
+const port = process.env.PORT || 5000; // Define the port number
 
 // Middleware to parse incoming JSON requests
 app.use(express.json());
