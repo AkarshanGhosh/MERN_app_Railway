@@ -17,7 +17,7 @@ app.use(express.json());
 
 // CORS configuration
 app.use(cors({
-    origin: 'http://localhost:3000', // Only allow this origin to access
+    origin: rocess.env.CLIENT_ORIGIN || 'http://localhost:3000', // Only allow this origin to access
     methods: ['POST', 'GET', 'OPTIONS'], // Allow only these methods
     allowedHeaders: ['Content-Type', 'auth-token'] // Allow specific headers
 }));
