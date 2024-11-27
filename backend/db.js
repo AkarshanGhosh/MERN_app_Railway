@@ -1,14 +1,18 @@
 const mongoose = require('mongoose');
-const mongoURI = "mongodb://localhost:27017/login"; // Ensure this matches your database name
 
+// Replace `<database_name>` with your actual database name
+const uri = "mongodb+srv://akarshanghosh28:7UkufoU1nnadac9s@cluster0.1kxw1.mongodb.net/Data?retryWrites=true&w=majority";
 
 const connectToMongo = async () => {
-    try {
-        await mongoose.connect(mongoURI);
-        console.log("Connected to MongoDB successfully");
-    } catch (err) {
-        console.error("Error connecting to MongoDB:", err);
-    }
+  try {
+    await mongoose.connect(uri, {
+      serverSelectionTimeoutMS: 10000, // Timeout after 10 seconds
+    });
+    console.log("Connected to MongoDB successfully");
+  } catch (err) {
+    console.error("Error connecting to MongoDB:", err.message);
+    throw err;
+  }
 };
 
 module.exports = connectToMongo;
