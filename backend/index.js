@@ -18,25 +18,22 @@ app.use(express.json());
 
 // Define allowed origins for CORS
 const allowedOrigins = [
-    'http://localhost:3000', // Local frontend during development
+    'http://localhost:3000', // For local development
     'https://mern-app-front-end-railway.vercel.app' // Deployed frontend
-];
-
-// CORS configuration
-app.use(cors({
+  ];
+  
+  app.use(cors({
     origin: (origin, callback) => {
-        // Allow requests with no origin (like Postman or server-to-server)
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            console.error(`CORS blocked for origin: ${origin}`);
-            callback(new Error('Not allowed by CORS')); // Deny the request
-        }
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true); // Allow the request
+      } else {
+        callback(new Error('Not allowed by CORS')); // Deny the request
+      }
     },
-    methods: ['POST', 'GET', 'OPTIONS'], // Allow only these methods
-    allowedHeaders: ['Content-Type', 'auth-token'], // Allow specific headers
-    credentials: true // Allow cookies and credentials if needed
-}));
+    methods: ['POST', 'GET', 'OPTIONS'], // Allowed HTTP methods
+    allowedHeaders: ['Content-Type', 'auth-token'], // Allowed headers
+    credentials: true // Enable cookies and credentials if needed
+  }));
 
 // Connect to MongoDB for login database
 connectToMongo();
