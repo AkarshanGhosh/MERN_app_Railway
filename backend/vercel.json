@@ -8,10 +8,10 @@
         },
         {
             "src": "src/**/*",
-            "use": "@vercel/static"
+            "use": "@vercel/node"
         }
     ],
     "routes":[
-        {"src":"/(.*)", "dest": "/"}
+        {"src":"/(.*)", "dest": "index.js"}
     ]
 }
