@@ -4,7 +4,9 @@
   "description": "its manages the user data on cloud and also store the site data on cloud",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",        
+    "dev": "nodemon index.js"        
   },
   "keywords": [
     "\"railway\"",
@@ -34,4 +36,5 @@
   "devDependencies": {
     "nodemon": "^3.1.7"
   }
+  
 }
