@@ -34,6 +34,8 @@ const allowedOrigins = [
     allowedHeaders: ['Content-Type', 'auth-token'], // Allowed headers
     credentials: true // Enable cookies and credentials if needed
   }));
+  // Allow preflight OPTIONS requests for all routes
+  app.options('*', cors());
 
 // Connect to MongoDB for login database
 connectToMongo();
