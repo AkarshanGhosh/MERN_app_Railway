@@ -11,6 +11,7 @@ const http = require('http'); // Import http for Socket.IO
 // Create an instance of the Express application
 const app = express();
 const port = process.env.PORT || 5000; // Define the port number
+const host = process.env.HOST || 'localhost';
 
 // Middleware to parse incoming JSON requests
 app.use(express.json());
@@ -62,5 +63,5 @@ app.use('/api/train', require('./routes/train')); // Train routes
 
 // Start the server and listen on the defined port
 server.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`); // Log message indicating server is running
+    console.log(`Example app listening at http://${host}:${port}`); // Log message indicating server is running
 });
