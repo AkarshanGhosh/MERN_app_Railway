@@ -16,12 +16,26 @@ const host = process.env.HOST || 'localhost';
 // Middleware to parse incoming JSON requests
 app.use(express.json());
 
+// Define allowed origins for CORS
+const allowedOrigins = [
+    'http://localhost:3000', // Local frontend during development
+    'https://mern-app-front-end-railway.vercel.app' // Deployed frontend
+];
+
 // CORS configuration
 app.use(cors({
-    origin: process.env.CLIENT_ORIGIN || 'http://localhost:3000', // Only allow this origin to access
-
+    origin: (origin, callback) => {
+        // Allow requests with no origin (like Postman or server-to-server)
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            console.error(`CORS blocked for origin: ${origin}`);
+            callback(new Error('Not allowed by CORS')); // Deny the request
+        }
+    },
     methods: ['POST', 'GET', 'OPTIONS'], // Allow only these methods
-    allowedHeaders: ['Content-Type', 'auth-token'] // Allow specific headers
+    allowedHeaders: ['Content-Type', 'auth-token'], // Allow specific headers
+    credentials: true // Allow cookies and credentials if needed
 }));
 
 // Connect to MongoDB for login database
