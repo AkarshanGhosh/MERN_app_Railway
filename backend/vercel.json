@@ -12,6 +12,12 @@
         }
     ],
     "routes":[
-        {"src":"/(.*)", "dest": "index.js"}
+        {"src":"/(.*)", 
+        "dest": "index.js",
+        "method": ["GET", "POST", "PUT", "DELETE", "PATCH","OPTION"],
+        "headers":{
+            "Allow-Control-Allow-Origin": "*"
+        }
+    }
     ]
 }
