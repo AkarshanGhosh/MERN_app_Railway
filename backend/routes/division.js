@@ -1,6 +1,6 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
-const Division = require('../models/Division'); // Ensure this path is correct
+const Division = require('../models/division'); // Ensure this path is correct
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'OurWebAppIsWorking@100';
 

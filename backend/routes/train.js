@@ -1,6 +1,6 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
-const Division = require('../models/Division'); // Ensure this is the correct path
+const Division = require('../models/division'); // Ensure this is the correct path
 const Train = require('../models/train'); // Importing the Train model
 
 const router = express.Router();
