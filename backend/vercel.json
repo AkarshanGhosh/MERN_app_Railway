@@ -1,23 +1,22 @@
 {
-    "installCommand": "npm install --legacy-peer-deps",
     "version": 2,
-    "build":[
-        {
-            "src": "index.js",
-            "use": "@vercel/node"
-        },
-        {
-            "src": "src/**/*",
-            "use": "@vercel/node"
-        }
+    "installCommand": "npm install --legacy-peer-deps",
+    "builds": [
+      {
+        "src": "index.js",
+        "use": "@vercel/node"
+      }
     ],
-    "routes":[
-        {"src":"/(.*)", 
+    "routes": [
+      {
+        "src": "/(.*)",
         "dest": "index.js",
-        "method": ["GET", "POST", "PUT", "DELETE", "PATCH","OPTION"],
-        "headers":{
-            "Allow-Control-Allow-Origin": "*"
+        "headers": {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type, Authorization"
         }
-    }
+      }
     ]
-}
+  }
+  
