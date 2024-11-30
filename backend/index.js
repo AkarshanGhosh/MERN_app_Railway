@@ -11,7 +11,6 @@ const http = require('http'); // Import http for Socket.IO
 // Create an instance of the Express application
 const app = express();
 const port = process.env.PORT || 5000; // Define the port number
-const host = process.env.HOST || 'localhost';
 
 // Middleware to parse incoming JSON requests
 app.use(express.json());
@@ -19,27 +18,31 @@ app.use(express.json());
 // Define allowed origins for CORS
 const allowedOrigins = [
     'http://localhost:3000', // For local development
-    'https://mern-app-front-end-railway.vercel.app' // Deployed frontend
-  ];
-  
-  app.use(cors({
+    'https://mern-app-front-end-railway.vercel.app', // Deployed frontend on Vercel
+    'https://mern-app-front-end-railway.vercel.app' // Replace with your actual frontend URL
+];
+
+app.use(cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true); // Allow the request
-      } else {
-        callback(new Error('Not allowed by CORS')); // Deny the request
-      }
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true); // Allow the request
+        } else {
+            console.error(`Blocked by CORS: ${origin}`);
+            callback(new Error('Not allowed by CORS')); // Deny the request
+        }
     },
-    methods: ['POST', 'GET', 'OPTIONS'], // Allowed HTTP methods
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed HTTP methods
     allowedHeaders: ['Content-Type', 'auth-token'], // Allowed headers
     credentials: true // Enable cookies and credentials if needed
-  }));
-  // Allow preflight OPTIONS requests for all routes
-  app.options('*', cors());
+}));
+
+// Allow preflight OPTIONS requests for all routes
+app.options('*', cors());
 
 // Connect to MongoDB for login database
 connectToMongo();
 
+// Uncomment these lines if connecting to additional databases
 // Connect to MongoDB for division database
 // connectToDivisionDB();
 
@@ -50,11 +53,16 @@ connectToMongo();
 const server = http.createServer(app);
 
 // Integrate Socket.IO with the server
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, {
+    cors: {
+        origin: allowedOrigins,
+        methods: ['GET', 'POST']
+    }
+});
 
 // Event listener for new connections
 io.on('connection', (socket) => {
-    console.log('A user connected');
+    console.log('A user connected:', socket.id);
 
     // Listen for messages from the client
     socket.on('message', (msg) => {
@@ -65,7 +73,7 @@ io.on('connection', (socket) => {
 
     // Event listener for disconnections
     socket.on('disconnect', () => {
-        console.log('User disconnected');
+        console.log('User disconnected:', socket.id);
     });
 });
 
@@ -75,6 +83,6 @@ app.use('/api/division', require('./routes/division')); // Division routes
 app.use('/api/train', require('./routes/train')); // Train routes
 
 // Start the server and listen on the defined port
-server.listen(port, () => {
-    console.log(`Example app listening at http://${host}:${port}`); // Log message indicating server is running
+server.listen(port, '0.0.0.0', () => { // Listen on all network interfaces
+    console.log(`Server is running and listening on http://0.0.0.0:${port}`);
 });
