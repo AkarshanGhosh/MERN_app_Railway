@@ -36,5 +36,5 @@ verificationTokenSchema.methods.compareToken = async function (token) {
 
 // Create the model
 const VerificationToken = mongoose.model('VerificationToken', verificationTokenSchema);
-
+VerificationToken.createIndexes()
 module.exports = VerificationToken;
