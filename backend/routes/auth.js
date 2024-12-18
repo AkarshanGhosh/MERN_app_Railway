@@ -4,14 +4,11 @@ const User = require('../models/User');
 const VerificationToken = require('../models/verificationToken');
 const router = express.Router();
 const { body, validationResult } = require('express-validator'); // Import validationResult
-var jwt = require('jsonwebtoken');
-var fetchuser = require('../middleware/fetchuser');
+const jwt = require('jsonwebtoken');
 const { generateOTP } = require('../utils/mail');
-const JWT_SECRET = 'OurWebAppIsWorking@100'
+const JWT_SECRET = 'OurWebAppIsWorking@100';
 
-
-
-// ROUTE 1:  Create a User using: POST '/api/auth/createuser'. Doesn't require Auth
+// ROUTE 1: Create a User using: POST '/api/auth/createuser'. Doesn't require Auth
 router.post('/createuser', [
     body('Username', 'Enter a valid Username').isLength({ min: 4 }),
     body('Email', 'Enter a valid Email').isEmail(),
@@ -26,10 +23,12 @@ router.post('/createuser', [
 
     try {
         // Check whether the user exists already
+        const { Username, Email, Phone_Number, password } = req.body;
+
         let existingUser = await User.findOne({
             $or: [
-                { Email: req.body.Email.toLowerCase() }, // Normalize email to lowercase
-                { Phone_Number: req.body.Phone_Number } // Ensure the casing matches
+                { Email: Email.toLowerCase() }, // Normalize email to lowercase
+                { Phone_Number: Phone_Number } // Ensure the casing matches
             ]
         });
 
@@ -39,42 +38,46 @@ router.post('/createuser', [
         }
 
         // Hash the password before saving it
-        const salt = await bcrypt.genSalt(10); // we await cause it return promise 
-        const hashedPassword = await bcrypt.hash(req.body.password, salt); // we await cause it return promise 
-        
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
         // Create the new user
         const newUser = await User.create({
-            Username: req.body.Username,
-            Email: req.body.Email,
+            Username,
+            Email,
             password: hashedPassword, // Store the hashed password
-            Phone_Number: req.body.Phone_Number,
+            Phone_Number,
         });
 
-        //generate OTP        
-        const OTP = generateOTP()
-        const verificationToken =new VerificationToken({
-            owner: newUser._id,
-            token: OTP
-        })
-        await verificationToken.save();
-        await newUser.save();
-        res.send(newUser)
-        // Return the success message along with the new user data
-        // Returning message using Json Token 
-        const data = {
-            User: {
-                id: User.id
-            }
-        }
-        const authToken= jwt.sign(data, JWT_SECRET);
-        console.log(authToken);
-        res.json({ authToken})
-        //res.json({ message: "User created successfully", newUser });
+        // Generate OTP
+        const OTP = generateOTP();
+        console.log('Generated OTP:', OTP); // For debugging purposes, remove in production
+
+        // Create and save verification token
+        const verificationToken = new VerificationToken({
+            owner: newUser._id, // Link token to the new user
+            token: OTP, // Store the generated OTP
+        });
+
+        await verificationToken.save(); // Save the token in the database
+
+        // Send success response
+        res.status(201).json({
+            message: "User created successfully. Verification OTP generated.",
+            user: {
+                id: newUser._id,
+                email: newUser.Email,
+            },
+            OTP, // Send OTP only for testing/debugging; remove in production
+        });
     } catch (error) {
-        console.error('Error:', error); // Log any error that occurs
+        console.error('Error during user creation:', error.message);
         res.status(500).send({ error: "Internal Server Error" });
     }
 });
+
+module.exports = router;
+
 
 // ROUTE 2: authenticate a User using: POST '/api/auth/login'. Doesn't require login
 
