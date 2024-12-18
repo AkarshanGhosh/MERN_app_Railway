@@ -15,43 +15,44 @@ router.post('/createuser', [
     body('Phone_Number', 'Enter a valid Phone number').isLength({ min: 10, max: 10 }).isNumeric(),
     body('password', 'Password must be at least 6 characters').isLength({ min: 6 }),
 ], async (req, res) => {
-    // Check for validation errors
+    // Validate request body
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
     try {
-        // Check whether the user exists already
         const { Username, Email, Phone_Number, password } = req.body;
 
-        let existingUser = await User.findOne({
+        // Check whether the user already exists
+        const existingUser = await User.findOne({
             $or: [
                 { Email: Email.toLowerCase() }, // Normalize email to lowercase
-                { Phone_Number: Phone_Number } // Ensure the casing matches
-            ]
+                { Phone_Number }, // Match phone number
+            ],
         });
 
-        // If user exists, return an error message
         if (existingUser) {
-            return res.status(400).json({ error: "Email or phone number already exists!" });
+            return res
+                .status(400)
+                .json({ error: 'Email or phone number already exists!' });
         }
 
-        // Hash the password before saving it
+        // Hash the password before saving
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // Create the new user
         const newUser = await User.create({
             Username,
-            Email,
+            Email: Email.toLowerCase(), // Normalize email before saving
             password: hashedPassword, // Store the hashed password
             Phone_Number,
         });
 
         // Generate OTP
         const OTP = generateOTP();
-        console.log('Generated OTP:', OTP); // For debugging purposes, remove in production
+        console.log('Generated OTP:', OTP); // Debugging; remove in production
 
         // Create and save verification token
         const verificationToken = new VerificationToken({
@@ -61,9 +62,9 @@ router.post('/createuser', [
 
         await verificationToken.save(); // Save the token in the database
 
-        // Send success response
+        // Respond to client
         res.status(201).json({
-            message: "User created successfully. Verification OTP generated.",
+            message: 'User created successfully. Verification OTP generated.',
             user: {
                 id: newUser._id,
                 email: newUser.Email,
@@ -72,9 +73,10 @@ router.post('/createuser', [
         });
     } catch (error) {
         console.error('Error during user creation:', error.message);
-        res.status(500).send({ error: "Internal Server Error" });
+        res.status(500).json({ error: 'Internal Server Error' });
     }
-});
+}
+);
 
 //module.exports = router;
 
