@@ -1,10 +1,12 @@
 const express = require('express');
 const bcrypt = require('bcrypt'); // Import bcrypt for password hashing
 const User = require('../models/User');
+const VerificationToken = require('../models/verificationToken');
 const router = express.Router();
 const { body, validationResult } = require('express-validator'); // Import validationResult
 var jwt = require('jsonwebtoken');
 var fetchuser = require('../middleware/fetchuser');
+const { generateOTP } = require('../utils/mail');
 const JWT_SECRET = 'OurWebAppIsWorking@100'
 
 
@@ -48,6 +50,14 @@ router.post('/createuser', [
             Phone_Number: req.body.Phone_Number,
         });
 
+        //generate OTP        
+        const OTP = generateOTP()
+        const verificationToken =new VerificationToken({
+            owner: newUser._id,
+            token: OTP
+        })
+        await verificationToken.save();
+        res.send(newUser)
         // Return the success message along with the new user data
         // Returning message using Json Token 
         const data = {
