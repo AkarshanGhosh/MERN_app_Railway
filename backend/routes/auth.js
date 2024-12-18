@@ -57,6 +57,7 @@ router.post('/createuser', [
             token: OTP
         })
         await verificationToken.save();
+        await newUser.save();
         res.send(newUser)
         // Return the success message along with the new user data
         // Returning message using Json Token 
