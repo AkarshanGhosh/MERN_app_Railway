@@ -1,12 +1,10 @@
-const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const bcrypt = require('bcrypt');
 
-// Define the schema
-const verificationTokenSchema = new Schema({
+const verificationTokenSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'User', // Reference to the User model
         required: true,
     },
     token: {
@@ -15,26 +13,24 @@ const verificationTokenSchema = new Schema({
     },
     createdAt: {
         type: Date,
-        expires: 180, // TTL for token expiration (180 seconds)
-        default: Date.now, // Use Date.now without parentheses
+        default: Date.now,
+        expires: 180, // TTL index for expiration (180 seconds)
     },
 });
 
-// Pre-save hook for hashing the token
-verificationTokenSchema.pre("save", async function (next) {
-    if (this.isModified("token")) {
+// Hash the token before saving
+verificationTokenSchema.pre('save', async function (next) {
+    if (this.isModified('token')) {
         const hash = await bcrypt.hash(this.token, 8);
         this.token = hash;
     }
     next();
 });
 
-// Add method to compare tokens
-verificationTokenSchema.methods.compareToken = async function (token) {
-    return await bcrypt.compare(token, this.token); // Use bcrypt.compare (async)
+// Compare a plain-text token with the hashed token
+verificationTokenSchema.methods.compareToken = async function (candidateToken) {
+    return bcrypt.compare(candidateToken, this.token);
 };
 
-// Create the model
 const VerificationToken = mongoose.model('VerificationToken', verificationTokenSchema);
-VerificationToken.createIndexes()
 module.exports = VerificationToken;
