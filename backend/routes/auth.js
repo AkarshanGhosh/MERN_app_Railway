@@ -76,7 +76,7 @@ router.post('/createuser', [
     }
 });
 
-module.exports = router;
+//module.exports = router;
 
 
 // ROUTE 2: authenticate a User using: POST '/api/auth/login'. Doesn't require login
