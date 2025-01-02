@@ -1,8 +1,27 @@
-exports.generateOTP = () => {
-     let otp = '' //  Reset OTP to an empty string each time the function is called
-     for(let i =0; i<=3; i++){// Loop 4 times to generate a 4-digit OTP
-         const randVal =  Math.round(Math.random() * 9) // Generate a random digit between 0 and 9
-         otp = otp + randVal // Return the generated OTP
-     }
-     return otp;
- }
+const nodemailer = require("nodemailer");
+
+module.exports = async(email,subject,text) =>{
+    try{
+        const transport = nodemailer.createTrasnport({
+            host:process.env.HOST,
+            service:process.env.SERVICE,
+            port:Number(process.env.EMAIL_PORT),
+            secure: Boolean(process.env.SECURE),
+            auth:{
+                user:process.env.USER,
+                pass:process.env.PASS
+            } 
+        });
+        await transport.sendMail({
+            from:process.env.USER,
+            to:email,
+            subject:subject,
+            text:text
+        });
+        console.log("Email sent successfully");
+
+    }catch (error) {
+        console.log("Email not sent");
+        console.log(error);
+    }
+}
