@@ -41,7 +41,7 @@ app.options('*', cors());
 connectToMongo();
 
 // Create an HTTP server using the Express app
-const server = https.createServer(app); // Switch to https.createServer if using SSL
+const server = http.createServer(app); // Switch to https.createServer if using SSL
 
 // For HTTPS, uncomment the lines below and ensure certificates are available
 // const options = {
