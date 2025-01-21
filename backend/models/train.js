@@ -1,11 +1,11 @@
 const TrainSchema = new Schema({
     Train_number: {
         type: String,
-        required: true
+        required: true // Required field
     },
     coach: {
         type: String,
-        required: true
+        required: true // Required field
     },
     date: {
         type: Date,
@@ -29,14 +29,18 @@ const TrainSchema = new Schema({
     },
     Error: { 
         type: String, 
-        default: "000"
+        required: true,  // Make this field required
+        default: "000" // Default value if not provided
     },
     Memory: {
         type: String, 
-        default: "Not available"
+        required: true,  // Make this field required
+        default: "Not available" // Default value if not provided
     },
     Humidity: {
         type: String,
-        default: "Not available"
+        required: true,  // Make this field required
+        default: "Not available" // Default value if not provided
     }
 });
+const Train = module.exports =  mongoose.model('Train', TrainSchema);
