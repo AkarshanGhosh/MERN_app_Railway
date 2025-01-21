@@ -30,6 +30,21 @@ const TrainSchema = new Schema({
     Division: { // Define Division as a reference to the Division model
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Division' // Referencing the Division model
+    },
+    Error: { 
+        type: String, // Store error details (if any)
+        default: "No errors" // Optional default value
+    },
+    Memory: {
+        type: String, // Store memory usage information
+        default: "Not available" // Optional default value
+    },
+    Temperature: {
+        type: String, // Redundant with existing temperature? Specify clearly
+    },
+    Humidity: {
+        type: String, // Store humidity levels
+        default: "Not available" // Optional default value
     }
 });
 
