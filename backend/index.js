@@ -6,7 +6,7 @@ const connectToMongo = require('./db'); // Connection for the login database
 // Import express, cors, and http
 const express = require('express');
 const cors = require('cors'); // Import the cors package
-const http = require('http'); // Import http for Socket.IO
+const https = require('https'); // Import http for Socket.IO
 
 // Create an instance of the Express application
 const app = express();
@@ -50,7 +50,7 @@ connectToMongo();
 // connectToTrainDB();
 
 // Create an HTTP server using the Express app
-const server = http.createServer(app);
+const server = https.createServer(app);
 
 // Integrate Socket.IO with the server
 const io = require('socket.io')(server, {
@@ -84,5 +84,5 @@ app.use('/api/train', require('./routes/train')); // Train routes
 
 // Start the server and listen on the defined port
 server.listen(port, '0.0.0.0', () => { // Listen on all network interfaces
-    console.log(`Server is running and listening on http://0.0.0.0:${port}`);
+    console.log(`Server is running and listening on https://0.0.0.0:${port}`);
 });
