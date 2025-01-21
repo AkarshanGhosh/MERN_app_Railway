@@ -2,7 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const http = require('http'); // For HTTP server
-const https = require('https'); // For HTTPS server if needed
+var https = require('https'); // For HTTPS server if needed
 const fs = require('fs'); // For reading SSL certificates (optional for HTTPS)
 const connectToMongo = require('./db');
 
@@ -41,7 +41,9 @@ app.options('*', cors());
 connectToMongo();
 
 // Create an HTTP server using the Express app
-const server = http.createServer(app); // Switch to https.createServer if using SSL
+const server = http.
+
+eServer(app); // Switch to https.createServer if using SSL
 
 // For HTTPS, uncomment the lines below and ensure certificates are available
 // const options = {
