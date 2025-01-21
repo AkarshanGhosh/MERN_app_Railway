@@ -33,10 +33,10 @@ const TrainSchema = new Schema({
     },
     Error: { 
         type: String, // Store error details (if any)
-        default: "No errors" // Optional default value
+        default: "000" // Optional default value
     },
     Memory: {
-        type: String, // Store memory usage information
+        type: Percentage, // Store memory usage information
         default: "Not available" // Optional default value
     },
     Temperature: {
