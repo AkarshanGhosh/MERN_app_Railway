@@ -3,14 +3,15 @@ const connectToMongo = require('./db'); // Connection for the login database
 // const connectToDivisionDB = require('./divisiondb'); // Connection for the division database
 // const connectToTrainDB = require('./traindb.js'); // Connecting to coach db
 
-// Import express and socket.io
+// Import express, cors, and http
 const express = require('express');
 const cors = require('cors'); // Import the cors package
-const socketIo = require('socket.io'); // Import socket.io
+const http = require('http'); // Import http for Socket.IO
+//const https = require('https')
 
 // Create an instance of the Express application
 const app = express();
-const port = process.env.PORT || 5002; // Define the port number
+const port = process.env.PORT || 5000; // Define the port number
 
 // Middleware to parse incoming JSON requests
 app.use(express.json());
@@ -49,13 +50,11 @@ connectToMongo();
 // Connect to MongoDB for Train Database
 // connectToTrainDB();
 
-// Start the server with Express
-const server = app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
-});
+// Create an HTTP server using the Express app
+const server = https.createServer(app);
 
 // Integrate Socket.IO with the server
-const io = socketIo(server, {
+const io = require('socket.io')(server, {
     cors: {
         origin: allowedOrigins,
         methods: ['GET', 'POST']
@@ -84,10 +83,7 @@ app.use('/api/auth', require('./routes/auth')); // Auth routes
 app.use('/api/division', require('./routes/division')); // Division routes
 app.use('/api/train', require('./routes/train')); // Train routes
 
-
 // Start the server and listen on the defined port
-//server.listen(port, '0.0.0.0', () => { // Listen on all network interfaces
-   // console.log(`Server is running and listening on https://0.0.0.0:${port}`);
-//});
-
-// Start the server
+server.listen(port, '0.0.0.0', () => { // Listen on all network interfaces
+    console.log(`Server is running and listening on https://0.0.0.0:${port}`);
+});
