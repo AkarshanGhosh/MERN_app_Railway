@@ -7,7 +7,7 @@ const connectToMongo = require('./db'); // Connection for the login database
 const express = require('express');
 const cors = require('cors'); // Import the cors package
 const http = require('http'); // Import http for Socket.IO
-//const https = require('https')
+const https = require('https')
 
 // Create an instance of the Express application
 const app = express();
