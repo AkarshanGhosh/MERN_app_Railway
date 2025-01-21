@@ -50,7 +50,7 @@ connectToMongo();
 // connectToTrainDB();
 
 
-const server = https.createServer(app);
+const server = http.createServer(app);
 
 // Integrate Socket.IO with the server
 const io = require('socket.io')(server, {
