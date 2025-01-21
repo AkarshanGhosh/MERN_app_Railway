@@ -42,15 +42,10 @@ app.options('*', cors());
 // Connect to MongoDB for login database
 connectToMongo();
 
-// Uncomment these lines if connecting to additional databases
-// Connect to MongoDB for division database
-// connectToDivisionDB();
 
-// Connect to MongoDB for Train Database
-// connectToTrainDB();
 
 // Create an HTTP server using the Express app
-const server = https.createServer(app);
+const server = http.createServer(app);
 
 // Integrate Socket.IO with the server
 const io = require('socket.io')(server, {
