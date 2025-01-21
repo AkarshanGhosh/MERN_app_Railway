@@ -2,7 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const http = require('http'); // For HTTP server
-const https = require('https'); // For HTTPS server if needed
+//const https = require('https'); // For HTTPS server if needed
 const fs = require('fs'); // For reading SSL certificates (optional for HTTPS)
 const connectToMongo = require('./db');
 
@@ -79,5 +79,5 @@ app.use('/api/train', require('./routes/train'));
 
 // Start the server
 server.listen(port, '0.0.0.0', () => {
-    console.log(`Server is running and listening on https://0.0.0.0:${port}`);
+    console.log(`Server is running and listening on http://0.0.0.0:${port}`);
 });
