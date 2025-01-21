@@ -1,52 +1,42 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
-
-// Define the schema for train data
 const TrainSchema = new Schema({
-    Train_number: { // Updated field name
+    Train_number: {
         type: String,
-        required: true // Ensure this field is required
+        required: true
     },
     coach: {
-        type: String, // Store coach information (e.g., coach number or type)
-        required: true // Optional: Set to true if coach is mandatory
+        type: String,
+        required: true
     },
     date: {
         type: Date,
         default: Date.now
     },
     latitude: {
-        type: String, // Storing as string to preserve formatting
+        type: String,
     },
     longitude: {
-        type: String, // Storing as string to preserve formatting
+        type: String,
     },
     chain_status: {
-        type: String, // Chain status (e.g., Pulled, Normal)
+        type: String,
     },
     temperature: {
-        type: String, // Store temperature as string
+        type: String,
     },
-    Division: { // Define Division as a reference to the Division model
+    Division: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Division' // Referencing the Division model
+        ref: 'Division'
     },
     Error: { 
-        type: String, // Store error details (if any)
-        default: "000" // Optional default value
+        type: String, 
+        default: "000"
     },
     Memory: {
-        type: Percentage, // Store memory usage information
-        default: "Not available" // Optional default value
-    },
-    Temperature: {
-        type: String, // Redundant with existing temperature? Specify clearly
+        type: String, 
+        default: "Not available"
     },
     Humidity: {
-        type: String, // Store humidity levels
-        default: "Not available" // Optional default value
+        type: String,
+        default: "Not available"
     }
 });
-
-// Check if the model already exists to avoid overwriting
-const Train = module.exports = mongoose.model('train', TrainSchema);
