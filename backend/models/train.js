@@ -1,3 +1,6 @@
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
 const TrainSchema = new Schema({
     Train_number: {
         type: String,

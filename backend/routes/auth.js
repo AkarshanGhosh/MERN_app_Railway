@@ -7,6 +7,7 @@ const { body, validationResult } = require('express-validator'); // Import valid
 const jwt = require('jsonwebtoken');
 const { generateOTP } = require('../utils/mail');
 const JWT_SECRET = 'OurWebAppIsWorking@100';
+const fetchuser =require('../middleware/fetchuser')
 
 // ROUTE 1: Create a User using: POST '/api/auth/createuser'. Doesn't require Auth
 router.post('/createuser', [
