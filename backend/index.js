@@ -84,5 +84,5 @@ app.use('/api/train', require('./routes/train')); // Train routes
 
 // Start the server and listen on the defined port
 server.listen(port, '0.0.0.0', () => { // Listen on all network interfaces
-    console.log(`Server is running and listening on https://0.0.0.0:${port}`);
+    console.log(`Server is running and listening on http://0.0.0.0:${port}`);
 });
