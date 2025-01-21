@@ -12,7 +12,17 @@ router.post('/create', [
     body('coach', 'Enter a valid coach number or type').notEmpty(),
 ], async (req, res) => {
     try {
-        const { coach, latitude, longitude, chain_status, temperature, Train_number } = req.body;
+        const { 
+            Train_number, 
+            coach, 
+            latitude, 
+            longitude, 
+            chain_status, 
+            temperature, 
+            Error, 
+            Memory, 
+            Humidity 
+        } = req.body;
 
         const error = validationResult(req);
         if (!error.isEmpty()) {
@@ -31,7 +41,10 @@ router.post('/create', [
             latitude,
             longitude,
             chain_status,
-            temperature
+            temperature,
+            Error,
+            Memory,
+            Humidity,
         });
 
         const savedTrain = await train.save();
@@ -45,7 +58,7 @@ router.post('/create', [
 
 // ROUTE 2: Fetch train data by train number using: GET '/api/train/fetch'
 router.get('/fetch', async (req, res) => {
-    const { trainNumber, coach } = req.query; // Change req.body to req.query
+    const { trainNumber, coach } = req.query;
 
     if (!trainNumber || !coach) {
         return res.status(400).json({ error: "Both train number and coach are required." });
@@ -68,6 +81,9 @@ router.get('/fetch', async (req, res) => {
             longitude: train.longitude,
             chain_status: train.chain_status,
             temperature: train.temperature,
+            error: train.Error,
+            memory: train.Memory,
+            humidity: train.Humidity,
             divisionName: train.Division ? train.Division.Train_Name : null
         }));
 
@@ -78,29 +94,23 @@ router.get('/fetch', async (req, res) => {
     }
 });
 
-
 // ROUTE 3: Fetch unique coaches by train number using: GET '/api/train/coaches'
 router.get('/coaches', async (req, res) => {
-    const { trainNumber } = req.query; // Use req.query for GET request parameters
+    const { trainNumber } = req.query;
 
-    // Check if trainNumber is provided
     if (!trainNumber) {
         return res.status(400).json({ error: "Train number is required." });
     }
 
     try {
-        // Fetch all coaches associated with the given train number
         const coaches = await Train.find({ Train_number: trainNumber });
 
-        // If no coaches are found, return a 404 error
         if (coaches.length === 0) {
             return res.status(404).json({ message: `No coaches found for train number: ${trainNumber}` });
         }
 
-        // Use Set to get unique coach names
         const uniqueCoaches = [...new Set(coaches.map(coach => coach.coach))];
 
-        // Return the unique coach data as an array of unique coach names
         res.json({ trainNumber, coaches: uniqueCoaches });
     } catch (error) {
         console.error('Error fetching coaches:', error);
