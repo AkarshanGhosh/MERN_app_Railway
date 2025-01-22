@@ -41,7 +41,7 @@ app.options('*', cors());
 connectToMongo();
 
 // Create an HTTP server using the Express app
-const server = https.createServer(app); // Switch to https.createServer if using SSL
+const server = http.createServer(app); // Switch to https.createServer if using SSL
 
 // For HTTPS, uncomment the lines below and ensure certificates are available
 // const options = {
@@ -79,5 +79,5 @@ app.use('/api/train', require('./routes/train'));
 
 // Start the server
 server.listen(port, '0.0.0.0', () => {
-    console.log(`Server is running and listening on https://0.0.0.0:${port}`);
+    console.log(`Server is running and listening on http://0.0.0.0:${port}`);
 });
