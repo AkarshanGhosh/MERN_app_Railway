@@ -43,12 +43,6 @@ connectToMongo();
 // Create an HTTP server using the Express app
 const server = http.createServer(app); // Switch to https.createServer if using SSL
 
-// For HTTPS, uncomment the lines below and ensure certificates are available
-// const options = {
-//     key: fs.readFileSync('/path/to/your/private.key'),
-//     cert: fs.readFileSync('/path/to/your/certificate.crt')
-// };
-// const server = https.createServer(options, app);
 
 // Integrate Socket.IO
 const io = require('socket.io')(server, {
